@@ -16,7 +16,7 @@ export type NextImageProps = Omit<
   height?: number | `${number}`;
   fill?: boolean;
   placeholder: string;
-  onError: (error: unknown, setImage: (newSrc: string) => void) => void;
+  onError?: (error: unknown, setImage: (newSrc: string) => void) => void;
 };
 
 export interface IImageProps extends CustomImgAttributes, NextImageProps {

@@ -11,7 +11,7 @@ function App() {
         alt=""
         src="https://fastly.picsum.photos/id/931/536/354.jpg?hmac=6ZgjojnYbHIYY5lSWVqaya5csyza0S1_WGWntw6vsFE"
         placeholder="https://placehold.co/600x400"
-        loadingPlaceholder="/loading.jpg"
+        loadingPlaceholder="https://placehold.co/600x400"
         onError={() => {}}
         apiConfig={{}}
       />
