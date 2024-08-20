@@ -39,7 +39,8 @@ const Image = (props: IImageProps) => {
   }, []);
 
   if (component) {
-    return component({ src: image, ...restProps });
+    const Component = component; // Ensure it's treated as a component
+    return <Component src={image} {...restProps} />;
   }
 
   return <img src={image} {...restProps} />;

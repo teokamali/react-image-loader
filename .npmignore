@@ -11,3 +11,4 @@ tsconfig.json
 tsconfig.node.json
 tsup.config.ts
 vite.config.ts
+bun.lockb
