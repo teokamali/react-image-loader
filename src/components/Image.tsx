@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useState } from "react";
 import { IImageProps } from "./Image.types";
 
 const Image = (props: IImageProps) => {
@@ -10,25 +11,32 @@ const Image = (props: IImageProps) => {
     component,
     ...restProps
   } = props;
-  // const [image, setImage] = useState<string>(loadingPlaceholder || "");
-  let image: string = loadingPlaceholder || "";
+  const [image, setImage] = useState<string>(loadingPlaceholder || "");
 
-  const loadImage = async () => {
+  const loadImage = useCallback(async () => {
     try {
       const response = await fetch(src, apiConfig);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      image = src;
+      setImage(src);
     } catch (error) {
-      image = placeholder;
-      onError(error, (newImage) => (image = newImage));
+      setImage(placeholder);
+      onError(error, setImage);
     }
-  };
+  }, [src]);
 
-  if (image !== src) {
-    loadImage();
-  }
+  useEffect(() => {
+    if (image !== src) {
+      loadImage();
+    }
+
+    return () => {
+      if (image && image.startsWith("blob:")) {
+        URL.revokeObjectURL(image);
+      }
+    };
+  }, []);
 
   if (component) {
     const Component = component; // Ensure it's treated as a component
