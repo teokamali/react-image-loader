@@ -1,46 +1,32 @@
 # React Image Loader
 
-> A customizable React component that provides enhanced image loading
+A customizable React component that provides enhanced image loading
 
-> capabilities, including support for placeholders, error handling, and
+capabilities, including support for placeholders, error handling, and
 
-> integration with Next.js's `Image` component.
+integration with Next.js's `Image` component.
 
 ## Installation
 
 You can install the package using either npm or yarn:
 
 ```bash
-
-
-
 npm  i  @teokamali/react-image-loader
-
-
 
 ```
 
 or
 
 ```bash
-
-
 
 yarn  add  @teokamali/react-image-loader
 
-
-
 ```
 
 or
 
 ```bash
-
-
-
 bun  add  @teokamali/react-image-loader
-
-
 
 ```
 
