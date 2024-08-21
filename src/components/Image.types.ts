@@ -63,6 +63,7 @@ type CustomImgAttributes = Omit<
 
 export interface IImageProps extends CustomImgAttributes, NextImageProps {
   loadingPlaceholder?: string;
+  errorPlaceholder?: string;
   apiConfig?: RequestInit;
   component?: React.ComponentType<NextImageProps>;
   onError?: (error: Response, setImage: (newSrc: string) => void) => void;

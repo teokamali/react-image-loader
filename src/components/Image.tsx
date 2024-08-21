@@ -6,9 +6,10 @@ const Image = (props: IImageProps) => {
     loadingPlaceholder,
     onError,
     src,
-    placeholder,
+    // placeholder,
     apiConfig,
     component,
+    errorPlaceholder,
     ...restProps
   } = props;
 
@@ -22,12 +23,15 @@ const Image = (props: IImageProps) => {
       }
       setImage(src as string);
     } catch (err) {
-      setImage(placeholder || "");
+      setImage(errorPlaceholder || "");
       onError?.(err as Response, setImage);
     }
   }, []);
 
   useEffect(() => {
+    if (src === null) {
+      return setImage(errorPlaceholder || "");
+    }
     if (image !== src) {
       loadImage();
     }

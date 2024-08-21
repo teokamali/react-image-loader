@@ -94,10 +94,10 @@ function App() {
         height={300}
         placeholder="blur"
         loadingPlaceholder="loading-placeholder.png"
+        errorPlaceholder="fallback-image.png"
         onError={(error, setImage) => {
           console.error("Image failed to load:", error);
-
-          setImage("fallback-image.png");
+          setImage("fallback-image.png"); // or Optionally use errorPlaceholder prop
         }}
       />
     </div>
@@ -228,6 +228,11 @@ Description: Root element for lazy loading.
 Type: string
 
 Description: Placeholder image URL for loading state.
+`errorPlaceholder`
+
+Type: string
+
+Description: Placeholder image URL for error state.
 
 `apiConfig`
 
