@@ -1,4 +1,5 @@
-import { ImageLoader } from "@teokamali/react-image-loader";
+import { ImageLoader } from ".";
+
 function App() {
   return (
     <div>
