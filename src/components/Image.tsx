@@ -11,20 +11,21 @@ const Image = (props: IImageProps) => {
     component,
     ...restProps
   } = props;
+
   const [image, setImage] = useState<string>(loadingPlaceholder || "");
 
   const loadImage = useCallback(async () => {
     try {
-      const response = await fetch(src, apiConfig);
+      const response = await fetch(src as string, apiConfig);
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw response;
       }
-      setImage(src);
-    } catch (error) {
-      setImage(placeholder);
-      onError(error, setImage);
+      setImage(src as string);
+    } catch (err) {
+      setImage(placeholder || "");
+      onError?.(err as Response, setImage);
     }
-  }, [src]);
+  }, [src, apiConfig, placeholder, onError]);
 
   useEffect(() => {
     if (image !== src) {
@@ -36,7 +37,7 @@ const Image = (props: IImageProps) => {
         URL.revokeObjectURL(image);
       }
     };
-  }, []);
+  }, [image, src, loadImage]);
 
   if (component) {
     const Component = component; // Ensure it's treated as a component
