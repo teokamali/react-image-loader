@@ -1,5 +1,4 @@
-import { ImageLoader } from ".";
-
+import { ImageLoader } from "@teokamali/react-image-loader";
 function App() {
   return (
     <div>
@@ -11,7 +10,6 @@ function App() {
         placeholder={"blur"}
         loadingPlaceholder="https://placehold.co/600x400"
         onError={(err, setImage) => {
-          console.log(err);
           setImage("https://placehold.co/600");
         }}
         apiConfig={{}}
