@@ -7,7 +7,7 @@ function App() {
         width={200}
         height={200}
         alt=""
-        src="https://fastly.picsum.photos/id/931/536/354.jpg?"
+        src=""
         // src={null}
         placeholder={"blur"}
         loadingPlaceholder="https://placehold.co/600x400"

@@ -29,7 +29,7 @@ const Image = (props: IImageProps) => {
   }, []);
 
   useEffect(() => {
-    if (src === null) {
+    if ((typeof src === "string" && !src.length) || src === null) {
       return setImage(errorPlaceholder || "");
     }
     if (image !== src) {
