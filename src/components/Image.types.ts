@@ -1,4 +1,4 @@
-import { ImgHTMLAttributes } from "react";
+import { ImgHTMLAttributes, ReactElement } from "react";
 
 export interface StaticImageData {
   src: string;
@@ -62,7 +62,7 @@ type CustomImgAttributes = Omit<
 >;
 
 export interface IImageProps extends CustomImgAttributes, NextImageProps {
-  loadingPlaceholder?: string;
+  loadingPlaceholder?: ReactElement;
   errorPlaceholder?: string;
   apiConfig?: RequestInit;
   component?: React.ComponentType<NextImageProps>;

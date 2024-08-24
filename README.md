@@ -1,271 +1,119 @@
 # React Image Loader
 
-A customizable React component that provides enhanced image loading
-
-capabilities, including support for placeholders, error handling, and
-
-integration with Next.js's `Image` component.
+A versatile React component for enhanced image loading capabilities, featuring customizable placeholders, error handling, and support for integration with Next.js's `Image` component.
 
 ## Installation
 
-You can install the package using either npm or yarn:
+Install the package via npm, yarn, or bun:
 
-```bash
-npm  i  @teokamali/react-image-loader
-
-```
+    npm install @teokamali/react-image-loader
 
 or
 
-```bash
-
-yarn  add  @teokamali/react-image-loader
-
-```
+    yarn add @teokamali/react-image-loader
 
 or
 
-```bash
-bun  add  @teokamali/react-image-loader
-
-```
+    bun add @teokamali/react-image-loader
 
 ## Usage
 
-> This package allows you to easily load images with customizable
-
-> placeholders and error handling. It can be used with or without
-
-> `Image` Image component.
+The `react-image-loader` package simplifies image loading with options for placeholders and error handling. It can be used with or without the `Image` component
 
 ### Basic Example
 
-```jsx
-import React from "react";
+     import React from "react";
+    import ImageLoader from "@teokamali/react-image-loader";
 
-import ImageLoader from "@teokamali/react-image-loader";
+    function App() {
+      return (
+        <div>
+          <ImageLoader
+            src="https://example.com/image.jpg"
+            alt="Example Image"
+            width={500}
+            height={300}
+            placeholder="blur"
+            loadingPlaceholder={<div>Loading...</div>}
+            onError={(error, setImage) => {
+              console.error("Image failed to load:", error);
+              setImage("fallback-image.png");
+            }}
+          />
+        </div>
+      );
+    }
 
-function App() {
-  return (
-    <div>
-      <ImageLoader
-        src="https://example.com/image.jpg"
-        alt="Example Image"
-        width={500}
-        height={300}
-        placeholder="blur"
-        loadingPlaceholder="loading-placeholder.png"
-        onError={(error, setImage) => {
-          console.error("Image failed to load:", error);
-
-          setImage("fallback-image.png");
-        }}
-      />
-    </div>
-  );
-}
-
-export default App;
-```
+    export default App;
 
 ### Using with Next.js's Image Component
 
-> You can optionally integrate the package with Next.js's `Image`
+Integrate the package with Next.js's `Image` component to utilize its built-in features:
 
-> component to take advantage of its built-in features:
+    import React from "react";
+    import Image from "next/image";
+    import ImageLoader from "@teokamali/react-image-loader";
 
-```jsx
-import React from "react";
+    function Home() {
+      return (
+        <div>
+          <ImageLoader
+            width={200}
+            height={200}
+            component={Image} // Use Next.js Image component
+            src="https://example.com/image.jpg"
+            alt="Example Image"
+            placeholder="blur"
+            loadingPlaceholder={<div>Loading...</div>}
+            errorPlaceholder="fallback-image.png"
+            onError={(error, setImage) => {
+              console.error("Image failed to load:", error);
+              setImage("fallback-image.png"); // or use errorPlaceholder prop
+            }}
+          />
+        </div>
+      );
+    }
 
-import NextImage from "next/image";
-
-import ImageLoader from "@teokamali/react-image-loader";
-
-function App() {
-  return (
-    <div>
-      <ImageLoader
-        width={200}
-        height={200}
-        component={NextImage} // Use Next.js Image component
-        src="https://example.com/image.jpg"
-        alt="Example Image"
-        width={500}
-        height={300}
-        placeholder="blur"
-        loadingPlaceholder="loading-placeholder.png"
-        errorPlaceholder="fallback-image.png"
-        onError={(error, setImage) => {
-          console.error("Image failed to load:", error);
-          setImage("fallback-image.png"); // or Optionally use errorPlaceholder prop
-        }}
-      />
-    </div>
-  );
-}
-
-export default App;
-```
+    export default Home;
 
 ### Props
 
-`src`
-
-Type: string | StaticImport
-
-Description: The source URL of the image or a static import.
-
-`alt`
-
-Type: string
-
-Description: Alternative text for the image.
-
-`width`
-
-Type: number | string
-
-Description: The width of the image.
-
-`height`
-
-Type: number | string
-
-Description: The height of the image.
-
-`fill`
-
-Type: boolean
-
-Description: If true, the image will stretch to fill the container.
-
-`loader`
-
-Type: ImageLoader
-
-Description: Custom loader function for the image.
-
-`quality`
-
-Type: number | string
-
-Description: Image quality (0-100).
-
-`priority`
-
-Type: boolean
-
-Description: If true, the image will be loaded with high priority.
-
-`loading`
-
-Type: "lazy" | "eager" | undefined
-
-Description: The loading strategy for the image.
-
-`placeholder`
-
-Type: "blur" | "empty" | string
-
-Description: The type of placeholder to show before the image loads.
-
-`blurDataURL`
-
-Type: string
-
-Description: URL for a low-quality image placeholder (blurred).
-
-`unoptimized`
-
-Type: boolean
-
-Description: If true, the image will not be optimized.
-
-`overrideSrc`
-
-Type: string
-
-Description: An alternative source URL to use for the image.
-
-`onLoadingComplete`
-
-Type: (img: HTMLImageElement) => void
-
-Description: Callback function when the image has finished loading.
-
-`layout`
-
-Type: string
-
-Description: Layout strategy for the image.
-
-`objectFit`
-
-Type: string
-
-Description: CSS object-fit property value.
-
-`objectPosition`
-
-Type: string
-
-Description: CSS object-position property value.
-
-`lazyBoundary`
-
-Type: string
-
-Description: Margin around the image for lazy loading.
-
-`lazyRoot`
-
-Type: string
-
-Description: Root element for lazy loading.
-
-`loadingPlaceholder`
-
-Type: string
-
-Description: Placeholder image URL for loading state.
-`errorPlaceholder`
-
-Type: string
-
-Description: Placeholder image URL for error state.
-
-`apiConfig`
-
-Type: RequestInit
-
-Description: Configuration for the image fetch request.
-
-`component`
-
-Type: React.ComponentType<NextImageProps>
-
-Description: Optional custom image component.
-
-`onError`
-
-Type: (error: Response, setImage: (newSrc: string) => void) => void
-
-Description: Callback function when image fails to load.
-
-# License
-
-> This project is licensed under the MIT License. See the LICENSE file
-
-> for details.
-
-# Contributions
-
-> Contributions, issues, and feature requests are welcome! Feel free to
-
-> check the issues page if you have any ideas or issues
-
-# Author
-
-This package was created by [Teo Kamalipour](https://github.com/teokamali).
-
-repository: [github link](https://github.com/teokamali/react-image-loader)
+- **`src`**: `string | StaticImport` - The source URL of the image or a static import.
+- **`alt`**: `string` - Alternative text for the image.
+- **`width`**: `number | string` - The width of the image.
+- **`height`**: `number | string` - The height of the image.
+- **`fill`**: `boolean` - If true, the image will stretch to fill the container.
+- **`loader`**: `ImageLoader` - Custom loader function for the image.
+- **`quality`**: `number | string` - Image quality (0-100).
+- **`priority`**: `boolean` - If true, the image will be loaded with high priority.
+- **`loading`**: `"lazy" | "eager" | undefined` - The loading strategy for the image.
+- **`placeholder`**: `"blur" | "empty" | string` - The type of placeholder to show before the image loads.
+- **`blurDataURL`**: `string` - URL for a low-quality blurred image placeholder.
+- **`unoptimized`**: `boolean` - If true, the image will not be optimized.
+- **`overrideSrc`**: `string` - An alternative source URL for the image.
+- **`onLoadingComplete`**: `(img: HTMLImageElement) => void` - Callback function when the image finishes loading.
+- **`layout`**: `string` - Layout strategy for the image.
+- **`objectFit`**: `string` - CSS `object-fit` property value.
+- **`objectPosition`**: `string` - CSS `object-position` property value.
+- **`lazyBoundary`**: `string` - Margin around the image for lazy loading.
+- **`lazyRoot`**: `string` - Root element for lazy loading.
+- **`loadingPlaceholder`**: `ReactElement` - Placeholder element to display while the image is loading.
+- **`errorPlaceholder`**: `string` - Placeholder image URL for the error state.
+- **`apiConfig`**: `RequestInit` - Configuration for the image fetch request.
+- **`component`**: `React.ComponentType<NextImageProps>` - Optional custom image component.
+- **`onError`**: `(error: Response, setImage: (newSrc: string) => void) => void` - Callback function when the image fails to load.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Contributions
+
+Contributions, issues, and feature requests are welcome! Please check the [issues page](https://github.com/teokamali/react-image-loader/issues) if you have any ideas or issues.
+
+## Author
+
+Created by [Teo Kamalipour](https://github.com/teokamali).
+
+Repository: [GitHub](https://github.com/teokamali/react-image-loader)
