@@ -12,9 +12,7 @@ const Image = (props: IImageProps) => {
     ...restProps
   } = props;
 
-  const imageRef = useRef<string>(""); // Ref to store the current image URL or blob URL
-  const blobUrlRef = useRef<string | null>(null); // Ref to store the blob URL
-  const [, forceUpdate] = useState(0); // Dummy state to force re-renders
+  const imageRef = useRef<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const loadImage = useCallback(async () => {
@@ -28,22 +26,17 @@ const Image = (props: IImageProps) => {
       const blob = await response.blob(); // Get the image as a blob
       const blobUrl = URL.createObjectURL(blob); // Create a blob URL
 
-      // Store the blob URL and update the imageRef
-      blobUrlRef.current = blobUrl;
       imageRef.current = blobUrl;
       setIsLoading(false);
-      forceUpdate((prev) => prev + 1); // Trigger a re-render
     } catch (err) {
       setIsLoading(false);
       imageRef.current = errorPlaceholder || "";
       if (onError) {
         onError(err as Response, (newSrc: string) => {
           imageRef.current = newSrc;
-          forceUpdate((prev) => prev + 1); // Trigger a re-render
         });
       } else {
         console.error("Image failed to load:", err);
-        forceUpdate((prev) => prev + 1); // Trigger a re-render
       }
     }
   }, [src, apiConfig, errorPlaceholder, onError]);
@@ -58,13 +51,7 @@ const Image = (props: IImageProps) => {
       loadImage();
     }
 
-    return () => {
-      // Clean up the blob URL when the component unmounts or the image changes
-      if (blobUrlRef.current) {
-        URL.revokeObjectURL(blobUrlRef.current);
-        blobUrlRef.current = null;
-      }
-    };
+    return () => {};
   }, [src, errorPlaceholder]);
 
   if (isLoading) {
